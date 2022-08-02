@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.horizoncorp.motivationapp.infrastructure.MotivationConstants
 import com.horizoncorp.motivationapp.R
+import com.horizoncorp.motivationapp.data.Mock
 import com.horizoncorp.motivationapp.infrastructure.SecurityPreferences
 import com.horizoncorp.motivationapp.databinding.ActivityMainBinding
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         handleUserName()
         handleFilter(R.id.image_all)
+        handleNextPhrase()
 
         binding.buttonNewPhrase.setOnClickListener(this)
         binding.imageAll.setOnClickListener(this)
@@ -32,10 +34,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if (view.id == R.id.button_new_phrase){
-            var s = ""
+            handleNextPhrase()
         } else if (view.id in listOf(R.id.image_all, R.id.image_happy, R.id.image_sunny)) {
             handleFilter(view.id)
         }
+    }
+
+    private fun handleNextPhrase(){
+        binding.textPhrase.text = Mock().getPhrase(categoryId)
     }
 
     private fun handleFilter(id: Int){

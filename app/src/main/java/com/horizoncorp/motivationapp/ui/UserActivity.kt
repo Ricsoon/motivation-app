@@ -1,12 +1,13 @@
-package com.horizoncorp.motivationapp
+package com.horizoncorp.motivationapp.ui
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.horizoncorp.motivationapp.infrastructure.MotivationConstants
+import com.horizoncorp.motivationapp.R
+import com.horizoncorp.motivationapp.infrastructure.SecurityPreferences
 import com.horizoncorp.motivationapp.databinding.ActivityUserBinding
 
 class UserActivity : AppCompatActivity(), View.OnClickListener {
@@ -20,6 +21,8 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.hide()
 
         binding.buttonSave.setOnClickListener(this)
+
+        verifyUserName()
     }
 
     override fun onClick(v: View) {
@@ -28,12 +31,18 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private fun verifyUserName() {
+        val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
+        if (name != "") {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+    }
+
     private fun handleSave() {
         val name = binding.editName.text.toString()
         if (name != "") {
-
-            SecurityPreferences(this).storeString("USER_NAME", name)
-
+            SecurityPreferences(this).storeString(MotivationConstants.KEY.USER_NAME, name)
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {
@@ -41,4 +50,5 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         }
 
     }
+
 }

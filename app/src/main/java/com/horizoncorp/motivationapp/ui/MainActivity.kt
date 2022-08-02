@@ -1,8 +1,11 @@
-package com.horizoncorp.motivationapp
+package com.horizoncorp.motivationapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.horizoncorp.motivationapp.infrastructure.MotivationConstants
+import com.horizoncorp.motivationapp.R
+import com.horizoncorp.motivationapp.infrastructure.SecurityPreferences
 import com.horizoncorp.motivationapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -28,7 +31,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun handleUserName(){
-        val name = SecurityPreferences(this).getString("USER_NAME")
+        val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
         binding.textUserName.text = "Olá, $name!"
     }
 }

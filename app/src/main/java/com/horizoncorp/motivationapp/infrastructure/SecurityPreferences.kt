@@ -1,4 +1,4 @@
-package com.horizoncorp.motivationapp
+package com.horizoncorp.motivationapp.infrastructure
 
 import android.content.Context
 import android.content.SharedPreferences
